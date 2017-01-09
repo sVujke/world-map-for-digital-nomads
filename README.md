@@ -1,0 +1,1 @@
+# world-map-for-digital-nomads
