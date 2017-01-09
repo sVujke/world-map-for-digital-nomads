@@ -1,0 +1,13 @@
+{
+  "name": "proba",
+  "homepage": "https://github.com/sVujke/world-map-for-digital-nomads",
+  "authors": [
+    "sVujke <stefanvujovic93@gmail.com>"
+  ],
+  "description": "opis",
+  "main": "",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.1.1"
+  }
+}
