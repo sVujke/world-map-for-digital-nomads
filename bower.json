@@ -1,14 +1,21 @@
 {
-  "name": "proba",
+  "name": "world map",
   "homepage": "https://github.com/sVujke/world-map-for-digital-nomads",
   "authors": [
     "sVujke <stefanvujovic93@gmail.com>"
   ],
-  "description": "opis",
-  "main": "",
+  "description": "none",
+  "main": "index.html",
+  "keywords": [
+    "world",
+    "map",
+    "digital",
+    "nomads"
+  ],
   "license": "MIT",
   "dependencies": {
-    "jquery": "^3.1.1",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "datamaps": "^0.5.8",
+    "jquery": "^3.1.1"
   }
 }
