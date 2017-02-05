@@ -6,12 +6,43 @@
 	<script src="bower_components/datamaps/src/js/components/d3/d3.min.js"></script>
 	<script src="bower_components/datamaps/src/js/components/topojson/topojson.js"></script>
 	<script src="bower_components/datamaps/dist/datamaps.world.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+
 </head>
 
 <body>
 <div id="map"></div>
 <script>
-    var map = new Datamap({element: document.getElementById('map')});
+    $.getJSON("http://localhost:8080/", function (data) {
+        scores = data.nomadScore;
+        filles = {};
+        for(var i in scores) {
+//            scores[i] = colors(scores[i]);
+            var help = scores[i]
+            filles[i] = 'rgb(0,0,'+Math.round(help*255)+')';
+            scores[i] = {
+                fillKey: i,
+                score: help
+            };
+
+        }
+        var keys = [];
+        for(var k in scores) keys.push(k);
+        var map = new Datamap({element: document.getElementById('map'), projection: 'mercator',
+            fills: filles,
+            data: scores,
+            geographyConfig: {
+                popupTemplate: function(geo, data) {
+                    return ['<div class="hoverinfo"><strong>',
+                        'The score of ' + geo.properties.name,
+                        ': ' + data.score,
+                        '</strong></div>'].join('');
+                }
+            }
+        });
+    })
+
+
 </script>
 </body>
 </html>
