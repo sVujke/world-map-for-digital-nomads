@@ -25,14 +25,33 @@
     <div class="row">
         <div class="col-md-6 col-lg-offset-4">
             <div id="command">
-                <label for="picker" id="picker-label">Choose display criteria</label>
-                <select class="form-control" id="picker" onchange="getData(this.value)">
-                    <option value="nomadScore">Nomad Score</option>
-                    <option value="nightlife">Night life</option>
-                    <option value="life_score">Life Score</option>
-                    <option value="places_to_work">Places to work</option>
-                    <option value="press_freedom_index">Press freedom index</option>
-                </select>
+                <div class="form-group col-md-8">
+                    <h2 id="picker-label">Choose display criteria:</h2>
+                    <!--<label class="col-md-offset-4" for="picker">Choose display criteria</label>-->
+                    <select class="form-control" id="picker" onchange="getData(this.value)">
+                        <option class="option-center" value="nomadScore">Nomad Score</option>
+                        <option class="option-center" value="nightlife">Night life</option>
+                        <option class="option-center" value="life_score">Life Score</option>
+                        <option class="option-center" value="places_to_work">Places to work</option>
+                        <option class="option-center" value="press_freedom_index">Press freedom index</option>
+                        <option class="option-center" value="aircon">Air conditioning</option>
+                        <option class="option-center" value="free_wifi_available">Free WIFI available</option>
+                        <option class="option-center" value="friendly_to_foreigners">Friendliness to foreigners</option>
+                        <option class="option-center" value="female_friendly">Female friendly</option>
+                        <option class="option-center" value="racism">Racism</option>
+                        <option class="option-center" value="safety">Safety</option>
+                        <option class="option-center" value="lgbt_friendly">LGBT Friendly</option>
+                        <option class="option-center" value="fragile_states_index">Fragile States Index</option>
+                        <option class="option-center" value="freedom_score">Freedom Score</option>
+                        <option class="option-center" value="leisure">Leisure</option>
+                        <option class="option-center" value="peace_score">Peace Score</option>
+                        <option class="option-center" value="nomad">Expences for Nomads</option>
+                        <option class="option-center" value="expat">Expences for Expats</option>
+                        <option class="option-center" value="longTerm">Expences - Long Term</option>
+                        <option class="option-center" value="shortTerm">Expences - Short Term</option>
+                        <option class="option-center" value="local">Expences for Locals</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
