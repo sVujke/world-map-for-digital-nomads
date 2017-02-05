@@ -12,36 +12,55 @@
 
 <body>
 <div id="map"></div>
+<div id="command">
+    <button onclick="redoMap()">Call function</button>
+</div>
 <script>
-    $.getJSON("http://localhost:8080/", function (data) {
-        scores = data.nomadScore;
-        filles = {};
-        for(var i in scores) {
+    var map = new Datamap({element: document.getElementById('map'), projection: 'mercator',
+//        fills: filles,
+//        data: scores,
+//        geographyConfig: {
+//            popupTemplate: function(geo, data) {
+//                return ['<div class="hoverinfo"><strong>',
+//                    'The score of ' + geo.properties.name,
+//                    ': ' + data.score,
+//                    '</strong></div>'].join('');
+//            }
+//        }
+    });
+    var colors = d3.scale.linear().domain([0, 1])
+        .interpolate(d3.interpolateHcl)
+        .range([d3.rgb("#36FFF7"), d3.rgb('#0009FF')]);;
+
+    function redoMap() {
+        $.getJSON("http://localhost:8080/", function (data) {
+            scores = data.nomadScore;
+            filles = {};
+            for(var i in scores) {
 //            scores[i] = colors(scores[i]);
-            var help = scores[i]
-            filles[i] = 'rgb(0,0,'+Math.round(help*255)+')';
-            scores[i] = {
-                fillKey: i,
-                score: help
-            };
-
-        }
-        var keys = [];
-        for(var k in scores) keys.push(k);
-        var map = new Datamap({element: document.getElementById('map'), projection: 'mercator',
-            fills: filles,
-            data: scores,
-            geographyConfig: {
-                popupTemplate: function(geo, data) {
-                    return ['<div class="hoverinfo"><strong>',
-                        'The score of ' + geo.properties.name,
-                        ': ' + data.score,
-                        '</strong></div>'].join('');
-                }
+                var help = scores[i]
+//            filles[i] = 'rgb(0,0,'+Math.round(help*255)+')';
+                filles[i] = colors(help);
+                scores[i] = {
+                    fillKey: i,
+                    score: help
+                };
             }
-        });
-    })
+            var keys = [];
+            for(var k in scores) keys.push(k);
+            changeColors(filles, scores)
 
+        });
+    }
+
+
+
+
+
+    function changeColors(filles, scores) {
+        map.data = scores;
+        map.updateChoropleth(filles);
+    }
 
 </script>
 </body>
