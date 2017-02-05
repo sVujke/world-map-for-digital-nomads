@@ -1,5 +1,31 @@
+html, body, .container-fluid { height: 100% }
 #map{
     position: relative;
-    width: 800px;
-    height: 500px;
+    width: 80%;
+    height: 100%;
+    /*margin-top: 10%;*/
+    display: block;
+    vertical-align: middle;
+    /*margin: 0 auto;*/
+    /*max-height: 500px;*/
+    /*height: 95%;*/
+    /*width: 95%;*/
+    /*background-color: black*/
+}
+
+#map-row{
+    height: 80%;
+    margin-top: 1%;
+    display: block;
+    /*background-color: red;*/
+}
+
+#map-cotainer {
+    height: 100%;
+    display: block;
+    /*background-color: yellow;*/
+}
+
+#picker-label{
+    text-align: center;
 }

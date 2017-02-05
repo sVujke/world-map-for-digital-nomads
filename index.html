@@ -7,21 +7,40 @@
 	<script src="bower_components/datamaps/src/js/components/topojson/topojson.js"></script>
 	<script src="bower_components/datamaps/dist/datamaps.world.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.css">
+    <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+
 
 </head>
 
 <body>
-<div id="map"></div>
-<div id="command">
-    <label for="picker">Choose what to display</label>
-    <select id="picker" onchange="getData(this.value)">
-        <option value="nomadScore">Nomad Score</option>
-        <option value="nightlife">Night life</option>
-        <option value="life_score">Life Score</option>
-        <option value="places_to_work">Places to work</option>
-        <option value="press_freedom_index">Press freedom index</option>
-    </select>
+<div class="container-fluid">
+    <div class="row" id="map-row">
+        <div class="col-md-offset-2 col-md-10" id="map-cotainer">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-lg-offset-4">
+            <div id="command">
+                <label for="picker" id="picker-label">Choose display criteria</label>
+                <select class="form-control" id="picker" onchange="getData(this.value)">
+                    <option value="nomadScore">Nomad Score</option>
+                    <option value="nightlife">Night life</option>
+                    <option value="life_score">Life Score</option>
+                    <option value="places_to_work">Places to work</option>
+                    <option value="press_freedom_index">Press freedom index</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+
 </div>
+
 <script>
 
     var colors = d3.scale.linear().domain([0, 1])
