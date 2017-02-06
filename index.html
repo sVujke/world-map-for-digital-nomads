@@ -8,8 +8,8 @@
 	<script src="bower_components/datamaps/dist/datamaps.world.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.css">
-    <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+    <!--<link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.css">-->
+    <!--<script src="bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>-->
 
 
 </head>
@@ -66,7 +66,7 @@
         .interpolate(d3.interpolateHcl)
         .range([d3.rgb("#36FFF7"), d3.rgb('#0009FF')]);
 
-    var map = null
+    var map = null;
 
     function getData(param) { // ex. nomadScore
         $.getJSON("http://localhost:8080/", function (data) {
@@ -96,7 +96,7 @@
                     popupTemplate: function (geo, data) {
                         return ['<div class="hoverinfo"><strong>',
                             'The ' + data.desc + " of " + geo.properties.name,
-                            ' is ' + data.dataP,
+                            ' is ' + Math.round(data.dataP * 100) / 100,
                             '</strong></div>'].join('');
                     },
                     popupOnHover: true, //disable the popup while hovering
@@ -107,8 +107,8 @@
 
             });
         } else {
-            map.data = dataPoints;
-            map.updateChoropleth(filles);
+//            map.data = dataPoints;
+            map.updateChoropleth(dataPoints, {reset: true});
         }
 
     }
