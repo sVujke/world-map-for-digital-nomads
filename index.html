@@ -71,44 +71,47 @@
     function getData(param) { // ex. nomadScore
         $.getJSON("http://localhost:8080/", function (data) {
             var dataPoints = data[param];
-            var filles = {};
             for(var i in dataPoints) {
                 var help = dataPoints[i];
-                filles[i] = colors(help);
                 dataPoints[i] = {
-                    fillKey: i,
+                    color: colors(help),
                     dataP: help,
                     desc: param
                 };
             }
-//            var keys = [];
-//            for(var k in scores) keys.push(k);
-            changeColors(filles, dataPoints)
+            changeColors(dataPoints)
 
         });
     }
 
-    function changeColors(filles, dataPoints) {
+    function changeColors(dataPoints) {
 //        $("#map").html("");
         if (map == null){
             map = new Datamap({element: document.getElementById('map'), projection: 'mercator',
                 geographyConfig: {
                     popupTemplate: function (geo, data) {
+                        if(data == null){
+                            return ['<div class="hoverinfo"><strong>',
+                                'No data',
+                                '</strong></div>'].join('');
+                        }
                         return ['<div class="hoverinfo"><strong>',
                             'The ' + data.desc + " of " + geo.properties.name,
-                            ' is ' + Math.round(data.dataP * 100) / 100,
+                            ' is ' + data.dataP,
                             '</strong></div>'].join('');
                     },
                     popupOnHover: true, //disable the popup while hovering
                     highlightOnHover: false,
                 },
-                fills: filles,
-                data: dataPoints,
+                fills: {
+                    defaultFill : 'black'
+                },
+                data: dataPoints
 
             });
+            map.updateChoropleth(dataPoints, {reset: false});
         } else {
-//            map.data = dataPoints;
-            map.updateChoropleth(dataPoints, {reset: true});
+            map.updateChoropleth(dataPoints, {reset: false});
         }
 
     }
