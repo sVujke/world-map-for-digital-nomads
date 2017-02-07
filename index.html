@@ -61,15 +61,39 @@
 </div>
 
 <script>
+    function getBetterName(name){
+        if(name == "nomadScore") return "Nomad score";
+        if(name == "nightlife") return "Night life";
+        if(name == "life_score") return "Life score";
+        if(name == "places_to_work") return "Places to work";
+        if(name == "press_freedom_index") return "Press freedom index";
+        if(name == "aircon") return "Air conditioning";
+        if(name == "free_wifi_available") return "Free WIFI available";
+        if(name == "friendly_to_foreigners") return "Friendliness to foreigners";
+        if(name == "female_friendly") return "Female friendly";
+        if(name == "racism") return "Racism";
+        if(name == "safety") return "Safety";
+        if(name == "lgbt_friendly") return "LGBT Friendly";
+        if(name == "fragile_states_index") return "Fragile States Index";
+        if(name == "freedom_score") return "Freedom Score";
+        if(name == "leisure") return "Leisure";
+        if(name == "peace_score") return "Peace Score";
+        if(name == "nomad") return "Expences for Nomads";
+        if(name == "expat") return "Expences for Expats";
+        if(name == "longTerm") return "Expences - Long Term";
+        if(name == "shortTerm") return "Expences - Short Term";
+        if(name == "local") return "Expences for Locals";
+
+    }
 
     var colors = d3.scale.linear().domain([0, 1])
         .interpolate(d3.interpolateHcl)
-        .range([d3.rgb("#36FFF7"), d3.rgb('#0009FF')]);
+        .range([d3.rgb("#36FFF7"), d3.rgb('#0009A6')]);
 
     var map = null;
 
     function getData(param) { // ex. nomadScore
-        $.getJSON("http://localhost:8080/", function (data) {
+        $.getJSON("http://localhost:8080/2", function (data) {
             var dataPoints = data[param];
             for(var i in dataPoints) {
                 var help = dataPoints[i];
@@ -96,7 +120,7 @@
                                 '</strong></div>'].join('');
                         }
                         return ['<div class="hoverinfo"><strong>',
-                            'The ' + data.desc + " of " + geo.properties.name,
+                            'The ' + getBetterName(data.desc) + " of " + geo.properties.name,
                             ' is ' + data.dataP,
                             '</strong></div>'].join('');
                     },
