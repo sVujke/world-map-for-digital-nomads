@@ -90,6 +90,18 @@
         .interpolate(d3.interpolateHcl)
         .range([d3.rgb("#36FFF7"), d3.rgb('#0009A6')]);
 
+    var colors2 = d3.scale.linear().domain([0, 2500])
+        .interpolate(d3.interpolateHcl)
+        .range([d3.rgb("#36FFF7"), d3.rgb('#0009A6')]);
+
+    var colors3 = d3.scale.linear().domain([0, 82])
+        .interpolate(d3.interpolateHcl)
+        .range([d3.rgb("#36FFF7"), d3.rgb('#0009A6')]);
+
+    var colors4 = d3.scale.linear().domain([0, 82])
+        .interpolate(d3.interpolateHcl)
+        .range([d3.rgb("#36FFF7"), d3.rgb('#0009A6')]);
+
     var map = null;
 
     function getData(param) { // ex. nomadScore
@@ -97,11 +109,32 @@
             var dataPoints = data[param];
             for(var i in dataPoints) {
                 var help = dataPoints[i];
-                dataPoints[i] = {
-                    color: colors(help),
-                    dataP: help,
-                    desc: param
-                };
+                if(param == "shortTerm" || param == "longTerm" || param == "expat"|| param == "nomad"){
+                    dataPoints[i] = {
+                        color: colors2(help),
+                        dataP: help,
+                        desc: param
+                    };
+                } else if (param == "press_freedom_index"){
+                    dataPoints[i] = {
+                        color: colors3(help),
+                        dataP: help,
+                        desc: param
+                    }
+                } else if (param == "fragile_states_index"){
+                    dataPoints[i] = {
+                        color: colors4(help),
+                        dataP: help,
+                        desc: param
+                    }
+                }else {
+                    dataPoints[i] = {
+                        color: colors(help),
+                        dataP: help,
+                        desc: param
+                    };
+                }
+
             }
             changeColors(dataPoints)
 
