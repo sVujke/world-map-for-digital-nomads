@@ -92,7 +92,7 @@
                     popupTemplate: function (geo, data) {
                         if(data == null){
                             return ['<div class="hoverinfo"><strong>',
-                                'No data',
+                                geo.properties.name + ': no data',
                                 '</strong></div>'].join('');
                         }
                         return ['<div class="hoverinfo"><strong>',
