@@ -21,7 +21,8 @@
     <div class="row" id="title_row">
         <div class="col-md-6 col-md-offset-3">
             <h1 class="text-center" id="title">World Map for Digital Nomads</h1>
-            <h4>odje ide teks</h4>
+            <h4 id="critText">Nomad Score: Overall country rating for nomads.</h4>
+            <h5 id="critDesc">Light color indicates low score</h5>
         </div>
     </div>
 
@@ -100,6 +101,96 @@
 
     }
 
+    function setCritText(name){
+        if(name == "nomadScore") {
+            $("#critText").text("Nomad Score: Overall country rating for nomads. ");
+            $("#critDesc").text("Light color indicates low score");
+        }
+        if(name == "nightlife") {
+            $("#critText").text("Night life: Overall night life rating for country. ");
+            $("#critDesc").text("Light color indicates poor night life");
+        }
+        if(name == "life_score") {
+            $("#critText").text("Life score: Overall night life rating for country. ");
+            $("#critDesc").text("Light color indicates poor night life");
+        }
+        if(name == "places_to_work") {
+            $("#critText").text("Places to work: How easy it is to find a job in a country.");
+            $("#critDesc").text("Darker colors indicate more opportunities for work");
+        }
+        if(name == "press_freedom_index") {
+            $("#critText").text("Press freedom: How autonomous is the press in a country. ");
+            $("#critDesc").text("Darker colors indicate a lower press freedom");
+        }
+        if(name == "aircon") {
+            $("#critText").text("Air conditioning: Is having AC common in a country?");
+            $("#critDesc").text("Dark shades indicate countries with a higher AC usage");
+        }
+        if(name == "free_wifi_available") {
+            $("#critText").text("Free wifi: How easy it is to access free WIFI");
+            $("#critDesc").text("The darker the better.");
+        }
+        if(name == "friendly_to_foreigners") {
+            $("#critText").text("Friendly to foreigners: Are foreigners welcome?");
+            $("#critDesc").text("In light coloured countries, people might not be so hospital");
+        }
+        if(name == "female_friendly") {
+            $("#critText").text("Female friendly: Are women respected?");
+            $("#critDesc").text("Darker countries openly support women rights");
+        }
+        if(name == "racism") {
+            $("#critText").text("Racism: How strong is racism?");
+            $("#critDesc").text("We have data problems");
+        }
+        if(name == "safety") {
+            $("#critText").text("Safety rating: Is it safe???");
+            $("#critDesc").text("Light colors indicate that safety is an issue.");
+        }
+        if(name == "lgbt_friendly"){
+            $("#critText").text("LGBT friendly: Respecting of LGBT rights.");
+            $("#critDesc").text("Lighter shaded countries are less respectful to LGBT population");
+        }
+        if(name == "fragile_states_index") {
+            $("#critText").text("Region instability: How stable is the country");
+            $("#critDesc").text("Light colors indicate stability. Dark purple regions are very unstable");
+        }
+        if(name == "freedom_score") {
+            $("#critText").text("Freedom score: Freedom of speech");
+            $("#critDesc").text("Light color indicates low level of freedom");
+        }
+        if(name == "leisure"){
+            $("#critText").text("Leisure: Are there many leisure possibilities?");
+            $("#critDesc").text("Darker colors are more leisure friendly");
+        }
+        if(name == "peace_score") {
+            $("#critText").text("Peace score: Is a war breakout likely?");
+            $("#critDesc").text("Light shades are more likely to be at war");
+        }
+        if(name == "nomad") {
+            $("#critText").text("Nomad expenses: Cost of life for a nomad");
+            $("#critDesc").text("Monthly expenses in USD. Darker colors are more expensive");
+        }
+        if(name == "expat") {
+            $("#critText").text("Expat expenses: Cost of life for an expat");
+            $("#critDesc").text("Monthly expenses in USD. Darker colors are more expensive");
+        }
+        if(name == "longTerm") {
+            $("#critText").text("Long term expenses: Cost of life for a long stay");
+            $("#critDesc").text("Monthly expenses in USD. Darker colors are more expensive");
+        }
+        if(name == "shortTerm") {
+            $("#critText").text("Short term expenses: Cost of life for a short stay");
+            $("#critDesc").text("Monthly expenses in USD. Darker colors are more expensive");
+        }
+        if(name == "local") {
+            $("#critText").text("Local's expenses: Cost of life for a local");
+            $("#critDesc").text("Monthly expenses in USD. Darker colors are more expensive");
+        }
+        return "";
+
+
+    }
+
     var colors = d3.scale.linear().domain([0, 1])
         .interpolate(d3.interpolateHcl)
         .range([d3.rgb("#36FFF7"), d3.rgb('#0009A6')]);
@@ -123,7 +214,7 @@
             var dataPoints = data[param];
             for(var i in dataPoints) {
                 var help = dataPoints[i];
-                if(param == "shortTerm" || param == "longTerm" || param == "expat"|| param == "nomad"){
+                if(param == "shortTerm" || param == "longTerm" || param == "expat"|| param == "nomad" || param == "local"){
                     dataPoints[i] = {
                         color: colors2(help),
                         dataP: help,
@@ -150,7 +241,8 @@
                 }
 
             }
-            changeColors(dataPoints)
+            setCritText(param);
+            changeColors(dataPoints);
 
         });
     }
