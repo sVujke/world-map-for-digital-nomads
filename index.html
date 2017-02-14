@@ -196,26 +196,26 @@
 
     var colors = d3.scale.linear().domain([0, 1])
         .interpolate(d3.interpolateHcl)
-        .range([d3.rgb("#E3FF4B"), d3.rgb('#C41E20')]);
+        .range([d3.rgb("#FFFF00"), d3.rgb('#981C26')]);
 
     var colors2 = d3.scale.linear().domain([0, 2500])
         .interpolate(d3.interpolateHcl)
-        .range([d3.rgb("#36FFF7"), d3.rgb('#0009A6')]);
+        .range([d3.rgb("#36FFF7"), d3.rgb('#4809A6')]);
 
     var colors3 = d3.scale.linear().domain([0, 82])
         .interpolate(d3.interpolateHcl)
-        .range([d3.rgb("#36FFF7"), d3.rgb('#0009A6')]);
+        .range([d3.rgb("#36FFF7"), d3.rgb('#4809A6')]);
 
-    var colors4 = d3.scale.linear().domain([0, 82])
+    var colors4 = d3.scale.linear().domain([0, 112])
         .interpolate(d3.interpolateHcl)
-        .range([d3.rgb("#36FFF7"), d3.rgb('#0009A6')]);
+        .range([d3.rgb("#36FFF7"), d3.rgb('#4809A6')]);
 
     function setLegendFills(colo, x,y, legendFills){
         legendFills['very_low'] = colo(y*0.1);
         legendFills['low'] = colo(y*0.3);
         legendFills['medium'] = colo(y*0.5);
         legendFills['high'] = colo(y*0.7);
-        legendFills['very_high'] = colo(y*0.9);
+        legendFills['very_high'] = colo(y);
         legendFills['defaultFill'] = 'black';
     }
 
@@ -235,7 +235,7 @@
                         dataP: help,
                         desc: param
                     };
-                    setLegendFills(colors2, 0, 2500, legendFills)
+                    setLegendFills(colors2, 0, 3000, legendFills)
                 } else if (param == "press_freedom_index"){
                     dataPoints[i] = {
                         color: colors3(help),
@@ -249,7 +249,7 @@
                         dataP: help,
                         desc: param
                     };
-                    setLegendFills(colors4, 0, 82, legendFills)
+                    setLegendFills(colors4, 0, 112, legendFills)
                 }else {
                     dataPoints[i] = {
                         color: colors(help),
