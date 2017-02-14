@@ -282,7 +282,7 @@
                         }
                         return ['<div class="hoverinfo"><strong>',
                             'The ' + getBetterName(data.desc) + " of " + geo.properties.name,
-                            ' is ' + data.dataP,
+                            ' is ' + data.dataP.toFixed(2),
                             '</strong></div>'].join('');
                     },
                     popupOnHover: true, //disable the popup while hovering
