@@ -20,11 +20,12 @@
     <div class="row" id="title_row">
         <div class="col-md-6 col-md-offset-3">
             <h1 class="text-center" id="title">World Map for Digital Nomads</h1>
+            <h4 id="critText">Nomad Score: Overall country rating for nomads.</h4>
         </div>
     </div>
 
     <div class="row" id="map-row">
-        <div class="col-md-offset-2 col-md-11" id="map-cotainer">
+        <div class="col-md-offset-2 col-md-8" id="map-cotainer">
             <div id="map"></div>
         </div>
     </div>
@@ -33,7 +34,6 @@
         <div class="col-md-6 col-lg-offset-4">
             <div id="command">
                 <div class="form-group col-md-8">
-                    <h4 id="critText">Nomad Score: Overall country rating for nomads.</h4>
                     <h5 id="critDesc">Light color indicates low score</h5>
                     <h2 id="picker-label">Choose display criteria:</h2>
                     <!--<label class="col-md-offset-4" for="picker">Choose display criteria</label>-->
@@ -293,9 +293,11 @@
                     datamap.svg.call(d3.behavior.zoom().on("zoom", redraw));
 
                     function redraw() {
+                        if(d3.event.scale < 1){return;}
                         datamap.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+
                     }
-                },
+                }
 
             });
             map.legend({
