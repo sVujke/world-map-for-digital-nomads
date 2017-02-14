@@ -196,7 +196,7 @@
 
     var colors = d3.scale.linear().domain([0, 1])
         .interpolate(d3.interpolateHcl)
-        .range([d3.rgb("#36FFF7"), d3.rgb('#0009A6')]);
+        .range([d3.rgb("#E3FF4B"), d3.rgb('#C41E20')]);
 
     var colors2 = d3.scale.linear().domain([0, 2500])
         .interpolate(d3.interpolateHcl)
@@ -210,10 +210,22 @@
         .interpolate(d3.interpolateHcl)
         .range([d3.rgb("#36FFF7"), d3.rgb('#0009A6')]);
 
+    function setLegendFills(colo, x,y, legendFills){
+        legendFills['very_low'] = colo(y*0.1);
+        legendFills['low'] = colo(y*0.3);
+        legendFills['medium'] = colo(y*0.5);
+        legendFills['high'] = colo(y*0.7);
+        legendFills['very_high'] = colo(y*0.9);
+        legendFills['defaultFill'] = 'black';
+    }
+
+
     var map = null;
 
     function getData(param) { // ex. nomadScore
 //        $.getJSON("http://localhost:8080/2", function (data2) {
+            //nadji mid low i high, stavi u fills i prikazi
+            var legendFills = {};
             var dataPoints = data2[param];
             for(var i in dataPoints) {
                 var help = dataPoints[i];
@@ -223,34 +235,41 @@
                         dataP: help,
                         desc: param
                     };
+                    setLegendFills(colors2, 0, 2500, legendFills)
                 } else if (param == "press_freedom_index"){
                     dataPoints[i] = {
                         color: colors3(help),
                         dataP: help,
                         desc: param
-                    }
+                    };
+                    setLegendFills(colors3, 0, 82, legendFills)
                 } else if (param == "fragile_states_index"){
                     dataPoints[i] = {
                         color: colors4(help),
                         dataP: help,
                         desc: param
-                    }
+                    };
+                    setLegendFills(colors4, 0, 82, legendFills)
                 }else {
                     dataPoints[i] = {
                         color: colors(help),
                         dataP: help,
                         desc: param
                     };
+                    setLegendFills(colors, 0, 1, legendFills)
                 }
 
             }
             setCritText(param);
-            changeColors(dataPoints);
+            changeColors(dataPoints, legendFills);
 
 //        });
     }
 
-    function changeColors(dataPoints) {
+    function changeColors(dataPoints, legendFills) {
+
+
+
 //        $("#map").html("");
         if (map == null){
             map = new Datamap({element: document.getElementById('map'), projection: 'mercator',
@@ -269,15 +288,42 @@
                     popupOnHover: true, //disable the popup while hovering
                     highlightOnHover: false,
                 },
-                fills: {
-                    defaultFill : 'black'
+                fills: legendFills,
+                data: dataPoints,
+                done: function(datamap) {
+                    datamap.svg.call(d3.behavior.zoom().on("zoom", redraw));
+
+                    function redraw() {
+                        datamap.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+                    }
                 },
-                data: dataPoints
 
             });
-            map.updateChoropleth(dataPoints, {reset: false});
+            map.legend({
+                defaultFillName: "No data",
+                labels: {
+                    very_low : "Very low",
+                    low : 'Low',
+                    medium: 'Medium',
+                    high: 'High',
+                    very_high: 'Very high'
+                }
+            });
+            map.updateChoropleth(dataPoints, {reset: true});
         } else {
-            map.updateChoropleth(dataPoints, {reset: false});
+
+            map.options.fills = legendFills;
+            map.updateChoropleth(dataPoints, {reset: true});
+            map.legend({
+                defaultFillName: "No data",
+                labels: {
+                    very_low : "Very low",
+                    low : 'Low',
+                    medium: 'Medium',
+                    high: 'High',
+                    very_high: 'Very high'
+                }
+            });
         }
 
     }
